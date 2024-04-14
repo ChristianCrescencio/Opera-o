@@ -1,65 +1,64 @@
 package a3;
 
-import java.util.Scanner;
+public class Operacao {
+    private int NroFatorial   = 0;
+    private int NroMinuendo   = 0;
+    private int NroSubtraendo = 0;
+    private int NroGenerico1  = 0;
+    private int NroGenerico2  = 0;
 
-public class Calculadora {
-    public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
-        System.out.println("Digite a operação:\n" 
-                        + "1 Adição dois valores inteiro\n"
-                        + "2 Subtração\n"
-                        + "3 Multiplicação\n"
-                        + "4 Divisão\n"
-                        + "5 Exponenciação\n"
-                        + "6 Fatorial\n"
-                        + "7 Adição tres valores\n"
-                        + "8 Adição dois valores texto");
-        int tipo = teclado.nextInt();
-        System.out.println("Digite o valo 1:");
-        int valor1 = teclado.nextInt();
-        int valor2 = 0;
-        int valor3 = 0;
-        if (tipo != 6) {
-            System.out.println("Digite o valor 2");
-            valor2 = teclado.nextInt();
-        }
-        if (tipo == 7) {
-                System.out.println("Digite o valor 3");
-                valor3 = teclado.nextInt();
-        }
-        teclado.close();
-        Operacao operacao = new Operacao();
+    public int soma(int numero1, int numero2) {
+        return numero1 + numero2;
+    }
 
-        switch (tipo) {
-            
-            case 1: System.out.println("Adição de dois valores inteiro = "+ operacao.soma(valor1, valor2)); 
-                    break;
-            case 2: operacao.setMinuendo(valor1);
-                    operacao.setSubtraendo(valor2);
-                    System.out.println("Subtração = "+operacao.subtração()); 
-                    break;
-            case 3: operacao.setNroGenerico1(valor1);
-                    operacao.setNroGenerico2(valor2);
-                    System.out.println("Multiplicação = "+(valor1*valor2));
-                    break;
-            case 4: operacao.setNroGenerico1(valor1);
-                    operacao.setNroGenerico2(valor2);
-                    System.out.println("Divisão = "+(valor1/valor2));
-                    break;
-            case 5: operacao.setNroGenerico1(valor1);
-                    operacao.setNroGenerico2(valor2);
-                    double Exponenciação = Math.pow(valor1,valor2);
-                    System.out.println("Exponenciação = "+ Exponenciação);
-                    break;
-            case 6: operacao.setFatorial(valor1);
-                    System.out.println("Fatorial = "+ operacao.getFatorial());
-                    break;
-            case 7: System.out.println("Adição 3 valores = "+operacao.soma(valor1, valor2, valor3));
-                    break;            
-            case 8: System.out.println("operação 2 valores textos = "+operacao.soma(Integer.toString(valor1), Integer.toString(valor2)));
-                    break; 
-            default: System.out.println("Operação Inválida!");
-        }
-
+    public Operacao() {
+        this.NroMinuendo   = 0;
+        this.NroSubtraendo = 0;
+        this.NroGenerico1  = 0;
+        this.NroGenerico2  = 0;
+    }
+    public void setMinuendo(int Numero) {
+        this.NroMinuendo = Numero;
+    }
+    public void setSubtraendo(int Numero) {
+        this.NroSubtraendo = Numero;
+    }
+    public int subtração() {
+        return NroMinuendo - NroSubtraendo;
+    }
+    public void setFatorial(int Numero) {
+        this.NroFatorial = Numero;
+    }
+    private int FatorialRecursivo(int Numero) {
+        if (Numero <= 1){
+            return 1;
+        } else {
+            return Numero * FatorialRecursivo(Numero-1);
+        } 
+    }
+    public int getFatorial() {
+        return FatorialRecursivo(NroFatorial);
+    }
+    public int multiplicação() {
+        return this.NroGenerico1 * this.NroGenerico2;
+    }
+    public void setNroGenerico1(int Numero) {
+        this.NroGenerico1 = Numero;
+    }
+    public void setNroGenerico2(int Numero) {
+        this.NroGenerico2 = Numero;
+    }
+    public int divisão() {
+        return this.NroGenerico1 / this.NroGenerico2;
+    }
+//SOBRECARGA
+    public int soma(int numero1, int numero2, int numero3) {
+        return numero1 + numero2 + numero3;
+    }
+    public int soma(String numero1, String numero2) {
+        return Integer.parseInt(numero1) + Integer.parseInt(numero2);
+    }
+    static public String MenssagemEstatica() {
+        return "Sou um método estático. Diferente do dinâmico, não preciso ser instanciado! Bem vindo aperte ENTER para continuar";
     }
 }
